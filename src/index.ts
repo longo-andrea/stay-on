@@ -1,9 +1,13 @@
-import { Feed } from "./types/Feed";
+import { Feed } from "./feed/Feed";
 
-const feed = new Feed("Smashing Magazine", "sada");
+(async () => {
+  const feed = new Feed("https://www.smashingmagazine.com/feed")
+  await feed.parseFeed();
 
-  feed.parseFeed()
-    .then(() => {
-      console.log(feed.getArticle()[0]);
-    });
+  // const searchArticles = feed.getArticlesByTitle("Using WebXR");
 
+  const article = feed.getLatestArticles();
+
+  console.log(article.title)
+
+})();

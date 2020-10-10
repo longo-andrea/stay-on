@@ -99,6 +99,11 @@ class Feed {
             return [];
         }
     }
+    /**
+     * @description
+     * Return latest article edited
+     * @return {any} which is the latest article edited
+     */
     getLatestArticles() {
         let latestArticleIndex = 0;
         let latestArticleDate = this.articles[latestArticleIndex].date;
