@@ -1,1 +1,0 @@
-{"version":3,"file":"FeedError.js","sourceRoot":"","sources":["../../../src/feed/error/FeedError.ts"],"names":[],"mappings":";;;AAAA,MAAa,SAAU,SAAQ,KAAK;IAGlC,YAAY,OAAe,EAAE,IAAY;QACvC,KAAK,CAAC,OAAO,CAAC,CAAC;QAEf,IAAI,CAAC,IAAI,GAAG,IAAI,CAAC;IACnB,CAAC;IAED,QAAQ;QACN,OAAO,UAAU,IAAI,CAAC,OAAO,KAAK,IAAI,CAAC,IAAI,EAAE,CAAC;IAChD,CAAC;CACF;AAZD,8BAYC"}
