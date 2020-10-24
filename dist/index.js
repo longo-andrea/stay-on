@@ -13,8 +13,7 @@ const Feed_1 = require("./feed/Feed");
 (() => __awaiter(void 0, void 0, void 0, function* () {
     const feed = new Feed_1.Feed("https://www.smashingmagazine.com/feed");
     yield feed.parseFeed();
-    // const searchArticles = feed.getArticlesByTitle("Using WebXR");
-    const article = feed.getLatestArticles();
-    console.log(article.title);
+    const searchArticles = feed.getArticlesByTitle("Smashing Podcast Episode 26 With Natalia Tepluhina: What’s New In Vue 3.0?");
+    console.log(searchArticles[0].getAuthor());
 }))();
 //# sourceMappingURL=index.js.map

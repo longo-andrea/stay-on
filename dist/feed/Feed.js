@@ -10,7 +10,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Feed = void 0;
-const FeedError_1 = require("./FeedError");
+const FeedError_1 = require("./error/FeedError");
+const Article_1 = require("./article/Article");
 const FeedParser = require("feedparser");
 const fetch = require('node-fetch');
 class Feed {
@@ -74,7 +75,7 @@ class Feed {
     /**
      * @description
      * Returns feed's articles
-     * @return {object[]} which contains all feed's articles
+     * @return {Article[]} which contains all feed's articles
      */
     getArticles() {
         return this.articles;
@@ -82,13 +83,13 @@ class Feed {
     /**
      * @description
      * Returns array of articles searched by title
-     * @param {string} title which represents the title to search
+     * @param {Article[]} title which represents the title to search
      */
     getArticlesByTitle(title) {
         if (title !== "") {
             return this.articles.filter((article) => {
-                if (article !== null && article.title) {
-                    return article.title.includes(title);
+                if (article !== null && article.getTitle()) {
+                    return article.getTitle().includes(title);
                 }
                 else {
                     return false;
@@ -106,12 +107,12 @@ class Feed {
      */
     getLatestArticles() {
         let latestArticleIndex = 0;
-        let latestArticleDate = this.articles[latestArticleIndex].date;
+        let latestArticleDate = this.articles[latestArticleIndex].getLastEditDate();
         this.articles.forEach((article, index) => {
-            if (article !== null && article.date) {
-                if (article.date < latestArticleDate) {
+            if (article !== null && article.getLastEditDate()) {
+                if (article.getLastEditDate() < latestArticleDate) {
                     latestArticleIndex = index;
-                    latestArticleDate = article.date;
+                    latestArticleDate = article.getLastEditDate();
                 }
             }
         });
@@ -128,13 +129,15 @@ class Feed {
                 .then(() => {
                 const feedParser = new FeedParser();
                 const articles = [];
-                feedParser.on("error", () => {
+                feedParser.on("error", (error) => {
                     reject(new FeedError_1.FeedError("Feed parsing went bad", this._url));
                 });
                 feedParser.on("readable", () => {
                     // get the articles
-                    const article = feedParser.read();
-                    articles.push(article);
+                    const parsedArticle = feedParser.read();
+                    if (parsedArticle !== null) {
+                        articles.push(new Article_1.Article(parsedArticle));
+                    }
                     // then store feed stream and articles list as Feed properties
                     this.feedStream = feedParser;
                     this.articles = articles;

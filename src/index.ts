@@ -4,10 +4,8 @@ import { Feed } from "./feed/Feed";
   const feed = new Feed("https://www.smashingmagazine.com/feed")
   await feed.parseFeed();
 
-  // const searchArticles = feed.getArticlesByTitle("Using WebXR");
+  const searchArticles = feed.getArticlesByTitle("Smashing Podcast Episode 26 With Natalia Tepluhina: What’s New In Vue 3.0?");
 
-  const article = feed.getLatestArticles();
-
-  console.log(article.title)
+  console.log(searchArticles[0].getAuthor());
 
 })();
