@@ -21,10 +21,9 @@ class Feed {
      * @param {string} url - which represents feed url
      * @param {string} [title] - which represents feed custom title
      */
-    constructor(url, title) {
+    constructor(url) {
         if (url !== "") {
             this._url = url;
-            this._title = title || "";
         }
     }
     /**
@@ -41,15 +40,6 @@ class Feed {
     }
     /**
      * @description
-     * Set feed's title
-     * @param {string} title - feed's title
-     * @throws string must not be empty or contains invalid character
-     */
-    set title(title) {
-        this._title = title;
-    }
-    /**
-     * @description
      * Return feed's url
      * @return {string} which represents feed's url
      */
@@ -61,8 +51,8 @@ class Feed {
      * Returns feed's title
      * @return {string} which represents feed's title
      */
-    get title() {
-        return this._title;
+    getTitle() {
+        return this.feedStream.meta.title;
     }
     /**
      * @description
@@ -124,32 +114,34 @@ class Feed {
      * @return {Promise<void>} when the feed parsing is finished
      */
     parseFeed() {
-        return new Promise((resolve, reject) => {
-            this.validateFeed(this._url)
-                .then(() => {
-                const feedParser = new FeedParser();
-                const articles = [];
-                feedParser.on("error", (error) => {
-                    reject(new FeedError_1.FeedError("Feed parsing went bad", this._url));
+        return __awaiter(this, void 0, void 0, function* () {
+            return new Promise((resolve, reject) => {
+                Feed.validateFeed(this._url)
+                    .then(() => {
+                    const feedParser = new FeedParser();
+                    const articles = [];
+                    feedParser.on("error", (error) => {
+                        reject(new FeedError_1.FeedError("Feed parsing went bad", this._url));
+                    });
+                    feedParser.on("readable", () => {
+                        // get the articles
+                        const parsedArticle = feedParser.read();
+                        if (parsedArticle !== null) {
+                            articles.push(new Article_1.Article(parsedArticle));
+                        }
+                        // then store feed stream and articles list as Feed properties
+                        this.feedStream = feedParser;
+                        this.articles = articles;
+                    });
+                    feedParser.on("end", () => {
+                        // when parsing is ended the promise comes resolved
+                        resolve();
+                    });
+                    this.fetchFeed(feedParser);
+                })
+                    .catch((error) => {
+                    reject(new FeedError_1.FeedError(error.message, this._url));
                 });
-                feedParser.on("readable", () => {
-                    // get the articles
-                    const parsedArticle = feedParser.read();
-                    if (parsedArticle !== null) {
-                        articles.push(new Article_1.Article(parsedArticle));
-                    }
-                    // then store feed stream and articles list as Feed properties
-                    this.feedStream = feedParser;
-                    this.articles = articles;
-                });
-                feedParser.on("end", () => {
-                    // when parsing is ended the promise comes resolved
-                    resolve();
-                });
-                this.fetchFeed(feedParser);
-            })
-                .catch((error) => {
-                reject(new FeedError_1.FeedError(error.message, this._url));
             });
         });
     }
@@ -159,7 +151,7 @@ class Feed {
      * @return {string} stringyfied feed
      */
     stingifyFeed() {
-        return `title:${this._title},,url:${this._url}`;
+        return `url:${this._url}`;
     }
     /**
      * @description
@@ -172,14 +164,14 @@ class Feed {
             .find((info) => info.includes("title:"))
             .split("title:")[1];
         const url = feedInfo.find((info) => info.includes("url:")).split("url:")[1];
-        return new Feed(title, url);
+        return new Feed(url);
     }
     /**
      * @description
      * Performs url's feed validation
      * @return {Promise<void> | never} return a promise when fetching is finished, throws an error otherwise
      */
-    validateFeed(url) {
+    static validateFeed(url) {
         return __awaiter(this, void 0, void 0, function* () {
             return fetch(url)
                 .catch((error) => {

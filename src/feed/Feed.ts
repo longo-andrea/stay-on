@@ -5,7 +5,6 @@ const FeedParser = require("feedparser")
 const fetch = require('node-fetch');
 
 export class Feed {
-  private _title: string;
   private _url: string;
   private feedStream: typeof FeedParser;
   private articles: Article[];
@@ -16,10 +15,9 @@ export class Feed {
    * @param {string} url - which represents feed url
    * @param {string} [title] - which represents feed custom title
    */
-  constructor(url: string, title?: string) {
+  constructor(url: string) {
     if (url !== "") {
       this._url = url;
-      this._title = title || "";
     }
   }
 
@@ -39,16 +37,6 @@ export class Feed {
   
   /**
    * @description
-   * Set feed's title
-   * @param {string} title - feed's title
-   * @throws string must not be empty or contains invalid character
-   */
-  public set title(title: string) {
-    this._title = title;
-  }
-
-  /**
-   * @description
    * Return feed's url
    * @return {string} which represents feed's url
    */
@@ -61,8 +49,8 @@ export class Feed {
    * Returns feed's title
    * @return {string} which represents feed's title
    */
-  public get title(): string {
-    return this._title;
+  public getTitle(): string {
+    return this.feedStream.meta.title;
   }
 
   /**
@@ -128,9 +116,9 @@ export class Feed {
    * Performs feed parsing.
    * @return {Promise<void>} when the feed parsing is finished
    */
-  public parseFeed(): Promise<void | unknown> | never {
+  public async parseFeed(): Promise<void | unknown> | never {
     return new Promise((resolve, reject) => {
-      this.validateFeed(this._url)
+      Feed.validateFeed(this._url)
         .then(() => {
           const feedParser = new FeedParser();
           const articles: Article[] = [];
@@ -171,7 +159,7 @@ export class Feed {
    * @return {string} stringyfied feed
    */
   public stingifyFeed(): string {
-    return `title:${this._title},,url:${this._url}`;
+    return `url:${this._url}`;
   }
 
   /**
@@ -187,7 +175,7 @@ export class Feed {
       .split("title:")[1];
     const url = feedInfo.find((info) => info.includes("url:")).split("url:")[1];
 
-    return new Feed(title, url);
+    return new Feed(url);
   }
 
   /**
@@ -195,7 +183,7 @@ export class Feed {
    * Performs url's feed validation
    * @return {Promise<void> | never} return a promise when fetching is finished, throws an error otherwise
    */
-  private async validateFeed(url: string): Promise<void> | never {
+  static async validateFeed(url: string): Promise<void> | never {
     return fetch(url)
       .catch((error: string) => {
         throw new Error(error);

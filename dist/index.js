@@ -8,12 +8,18 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const Feed_1 = require("./feed/Feed");
+const StayOn_1 = __importDefault(require("./StayOn"));
 (() => __awaiter(void 0, void 0, void 0, function* () {
-    const feed = new Feed_1.Feed("https://www.smashingmagazine.com/feed");
-    yield feed.parseFeed();
-    const searchArticles = feed.getArticlesByTitle("Smashing Podcast Episode 26 With Natalia Tepluhina: What’s New In Vue 3.0?");
-    console.log(searchArticles[0].getAuthor());
+    const myFeeds = new StayOn_1.default();
+    const feedList = yield myFeeds.addFeed("https://www.smashingmagazine.com/feed");
+    feedList.forEach(feed => {
+        console.log(feed.getTitle());
+    });
+    yield myFeeds.removeFeedByTitle("Articles on Smashing Magazine — For Web Designers And Developers");
+    console.log(myFeeds.getFeeds().length);
 }))();
 //# sourceMappingURL=index.js.map

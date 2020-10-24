@@ -1,11 +1,14 @@
-import { Feed } from "./feed/Feed";
+import StayOn from "./StayOn";
 
 (async () => {
-  const feed = new Feed("https://www.smashingmagazine.com/feed")
-  await feed.parseFeed();
+  const myFeeds = new StayOn();
+  const feedList = await myFeeds.addFeed("https://www.smashingmagazine.com/feed");
 
-  const searchArticles = feed.getArticlesByTitle("Smashing Podcast Episode 26 With Natalia Tepluhina: What’s New In Vue 3.0?");
+  feedList.forEach(feed => {
+    console.log(feed.getTitle());
+  })
 
-  console.log(searchArticles[0].getAuthor());
+  await myFeeds.removeFeedByTitle("Articles on Smashing Magazine — For Web Designers And Developers");
 
+  console.log(myFeeds.getFeeds().length);
 })();
