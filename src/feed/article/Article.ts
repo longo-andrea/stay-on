@@ -12,8 +12,8 @@ export class Article {
     this.author = feedItem.author || "";
     this.content = feedItem.description || "";
     this.summary = feedItem.summary || "";
-    this.lastEditDate = feedItem.date || new Date();
-    this.publishDate = feedItem.pubdate || new Date();
+    this.lastEditDate = feedItem.date || null;
+    this.publishDate = feedItem.pubdate || null;
     this.link = feedItem.link || "";
   }
 
