@@ -1,5 +1,7 @@
 # DESCRIPTION
 
+![StayOn](https://github.com/longo-andrea/stay-on/tree/master/src/assets/logo.svg)
+
 ***StayOn*** is a simple feed manager library in Node and TypeScript.
 StayOn helps in the process of feed subscription, and the way to obtain its main information.
 You can add/remove feeds, get latest articles, and some other properties in a easy way.

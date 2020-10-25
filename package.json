@@ -2,7 +2,8 @@
   "name": "stay-on",
   "version": "0.0.1",
   "description": "StayOn is a simple feed manager library in Node and TypeScript",
-  "main": "./src/StayOn.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
     "exe": "node dist/index.js"
