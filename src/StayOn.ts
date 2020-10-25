@@ -20,7 +20,7 @@ export default class {
    * @description
    * Add given feed and return feeds list
    * @param {string} feedUrl which represents feed's url
-   * @returns {Promise<Feed[]> | never} an array which contains all feeds
+   * @return {Promise<Feed[]> | never} an array which contains all feeds
    */
   async addFeed(feedUrl: string): Promise<Feed[]> | never {
     try {

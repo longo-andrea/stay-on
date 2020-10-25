@@ -95,7 +95,7 @@ export class Feed {
    * Return latest article edited
    * @return {any} which is the latest article edited
    */
-  getLatestArticles(): Article {
+  public getLatestArticles(): Article {
     let latestArticleIndex = 0;
     let latestArticleDate = this.articles[latestArticleIndex].getLastEditDate();
 
