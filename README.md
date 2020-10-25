@@ -1,6 +1,6 @@
 # DESCRIPTION
 
-![StayOn](https://github.com/longo-andrea/stay-on/tree/master/src/assets/logo.svg)
+<img src="./src/assets/logo.png" alt="StayOn Logo" style="width: 50%; display: block; margin: 20px auto" />
 
 ***StayOn*** is a simple feed manager library in Node and TypeScript.
 StayOn helps in the process of feed subscription, and the way to obtain its main information.
