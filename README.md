@@ -20,37 +20,37 @@ StayOn is composed by 4 main class:
 # DOCUMENTATION
 
 > **StayOn**:
-- [getFeeds()](#getFeeds():-Feed[])
-- [async addFeed(feedUrl: string)](#async-addFeed(feedUrl:-string):-Promise<Feed[]>-|-never)
-- [async addFeeds(feedsUrl: string[])](#async-addFeeds(feedsUrl:-string[]):-Promise<Feed[]>-|-never)
-- [removeFeedByTitle(title: string)](#removeFeedByTitle(title:-string):-Feed[])
+- [getFeeds()](#getfeeds-feed)
+- [async addFeed(feedUrl: string)](#async-addfeedfeedurl-string-promisefeed--never)
+- [async addFeeds(feedsUrl: string[])](#async-addfeedsfeedsurl-string-promisefeed--never)
+- [removeFeedByTitle(title: string)](#removefeedbytitletitle-string-feed)
 
 > **Feed**:
-- [constructor(url: string)](#constructor(url:-string))
-- [getTitle()](#getTitle():-string)
-- [getInfo()](#getInfo():-object)
-- [getArticles()](#getArticles():-Article[])
-- [getArticlesByTitle(title: string)](#getArticlesByTitle(title:-string):-Article[])
-- [getLatestArticles()](#getLatestArticles():-Article)
-- [getArticlesByTitle(title: string)](#getArticlesByTitle(title:-string):-Article[])
-- [getLatestArticles()](#getLatestArticles():-Article)
-- [async parseFeed()](#async-parseFeed():-Promise<void-|-unknown>-|-never)
-- [stingifyFeed()](#stingifyFeed():-string)
-- [static buildFromString(stringifyFeed: string](#static-buildFromString-(stringifyFeed:-string):-Feed)
-- [async validateFeed(url: string)](#async-validateFeed(url:-string):-Promise<void>-|-never)
+- [constructor(url: string)](#constructorurl-string)
+- [getTitle()](#gettitle-string)
+- [getInfo()](#getinfo-object)
+- [getArticles()](#getarticles-article)
+- [getArticlesByTitle(title: string)](#getarticlesbytitletitle-string-article)
+- [getLatestArticles()](#getlatestarticles-article)
+- [getArticlesByTitle(title: string)](#getarticlesbytitletitle-string-article)
+- [getLatestArticles()](#getlatestarticles-article)
+- [async parseFeed()](#async-parsefeed-promisevoid--unknown--never)
+- [stingifyFeed()](#stingifyfeed-string)
+- [static buildFromString(stringifyFeed: string)](#static-buildfromstringstringifyfeed-string-feed)
+- [async validateFeed(url: string)](#async-validatefeedurl-string-promise-never)
 
 > **FeedError**
-- [constructor(message: string, feed: string)](#constructor(message:-string,-feed:-string))
-- [toString()](#toString():-string)
+- [constructor(message: string, feed: string)](#constructormessage-string-feed-string)
+- [toString()](#tostring-string)
 
 > **Articles**
-- [getTitle()](#getTitle():-string)
-- [getAuthor()](#getAuthor():-string)
-- [getContent()](#getContent():-string)
-- [getSummary()](#getSummary():-string)
-- [getLastEditDate()](#getLastEditDate():-Date)
-- [getPublishDate()](#getPublishDate():-Date)
-- [getLink()](#getLink():-string)
+- [getTitle()](#gettitle-string)
+- [getAuthor()](#getauthor-string)
+- [getContent()](#getcontent-string)
+- [getSummary()](#getsummary-string)
+- [getLastEditDate()](#getlasteditdate-date)
+- [getPublishDate()](#getpublishdate-date)
+- [getLink()](#getlink-string)
 
 ## STAY ON
 StayOn class offers useful methods to handle feed list:
@@ -130,7 +130,7 @@ Returns feed's information in a stringified form
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 Build and Returnss a feed with given string
 
-### **async validateFeed(url: string): Promise<void> | never**
+### **async validateFeed(url: string): Promise| never**
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 Validate given url. An error is thrown if given url is not valid
