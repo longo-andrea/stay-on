@@ -7,7 +7,7 @@ export class FeedError extends Error {
     this.feed = feed;
   }
 
-  toString() {
+  public toString(): string {
     return `Error: ${this.message}\n${this.feed}`;
   }
 }
