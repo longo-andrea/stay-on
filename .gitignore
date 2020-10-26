@@ -1,6 +1,6 @@
 # created by gitignorer
 # profile used: default
 
-node_modules\
+node_modules
 dist\
 yarn.lock

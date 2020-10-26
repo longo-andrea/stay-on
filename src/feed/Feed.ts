@@ -18,6 +18,7 @@ export class Feed {
   constructor(url: string) {
     if (url !== "") {
       this._url = url;
+      this.articles = [];
     }
   }
 
@@ -50,7 +51,11 @@ export class Feed {
    * @return {string} which represents feed's title
    */
   public getTitle(): string {
-    return this.feedStream.meta.title;
+    if (this.feedStream) {
+      return this.feedStream.meta.title;
+    } else {
+      throw new FeedError("You must fetch feed first", this._url)
+    }
   }
 
   /**
@@ -59,7 +64,11 @@ export class Feed {
    * @return {object} which contains all feed's info
    */
   public getInfo(): object {
-    return this.feedStream.meta;
+    if (this.feedStream) {
+      return this.feedStream.meta;
+    } else {
+      throw new FeedError("You must fetch feed first", this._url)
+    }
   }
 
   /**
@@ -82,7 +91,7 @@ export class Feed {
         if (article !== null && article.getTitle()) {
           return article.getTitle().includes(title);
         } else {
-          return false;
+          return [];
         }
       });
     } else {
@@ -95,20 +104,24 @@ export class Feed {
    * Return latest article edited
    * @return {any} which is the latest article edited
    */
-  public getLatestArticles(): Article {
-    let latestArticleIndex = 0;
-    let latestArticleDate = this.articles[latestArticleIndex].getLastEditDate();
-
-    this.articles.forEach((article, index) => {
-      if (article !== null && article.getLastEditDate()) {
-        if (article.getLastEditDate() < latestArticleDate) {
-          latestArticleIndex = index;
-          latestArticleDate = article.getLastEditDate();
+  public getLatestArticle(): Article | null {
+    if (this.articles.length !== 0) {
+      let latestArticleIndex = 0;
+      let latestArticleDate = this.articles[latestArticleIndex].getLastEditDate();
+  
+      this.articles.forEach((article, index) => {
+        if (article !== null && article.getLastEditDate()) {
+          if (article.getLastEditDate() < latestArticleDate) {
+            latestArticleIndex = index;
+            latestArticleDate = article.getLastEditDate();
+          }
         }
-      }
-    });
+      });
+  
+      return this.articles[latestArticleIndex];
+    }
 
-    return this.articles[latestArticleIndex];
+    return null;
   }
 
   /**
@@ -170,9 +183,6 @@ export class Feed {
   static buildFromString(stringifyFeed: string): Feed {
     const feedInfo = stringifyFeed.split(",,");
 
-    const title = feedInfo
-      .find((info) => info.includes("title:"))
-      .split("title:")[1];
     const url = feedInfo.find((info) => info.includes("url:")).split("url:")[1];
 
     return new Feed(url);
