@@ -46,9 +46,11 @@ export default class {
    */
   async addFeeds(feedsUrl: string[]): Promise<Feed[]> | never {
     try {
-      feedsUrl.forEach(async (feedUrl) => {
+      const feeds = feedsUrl.map(async (feedUrl) => {
         await this.addFeed(feedUrl);
       });
+
+      await Promise.all(feeds);
 
       return this.feeds;
     } catch(error) {
@@ -63,11 +65,7 @@ export default class {
    * @returns {Feed[]} which contains current feed list
    */
   removeFeedByTitle(title: string): Feed[] {
-    this.feeds.forEach((feed, index) => {
-      if (feed.getTitle() === title) {
-        this.feeds.splice(index, 1);
-      }
-    });
+    this.feeds = this.feeds.filter((feed) => feed.getTitle() !== title);
 
     return this.feeds;
   }
