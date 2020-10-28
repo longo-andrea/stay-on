@@ -18,6 +18,15 @@ export default class {
 
   /**
    * @description
+   * Return feeds which contains given title
+   * @param {string} title which represents feed's title to search
+   */
+  getFeedsByTitle(title: string): Feed[] {
+    return this.feeds.filter((feed) => feed.getTitle() === title);
+  }
+
+  /**
+   * @description
    * Add given feed and return feeds list
    * @param {string} feedUrl which represents feed's url
    * @return {Promise<Feed[]> | never} an array which contains all feeds

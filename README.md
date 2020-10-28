@@ -23,6 +23,7 @@ StayOn is composed by 4 main class:
 
 > **StayOn**:
 - [getFeeds()](#getfeeds-feed)
+- [getFeedsByTitle(title: string)](#getfeedsbytitletitle-string-feed)
 - [async addFeed(feedUrl: string)](#async-addfeedfeedurl-string-promisefeed--never)
 - [async addFeeds(feedsUrl: string[])](#async-addfeedsfeedsurl-string-promisefeed--never)
 - [removeFeedByTitle(title: string)](#removefeedbytitletitle-string-feed)
@@ -61,6 +62,11 @@ StayOn class offers useful methods to handle feed list:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 Returns feeds list
+
+### **getFeedsByTitle(title: string): Feed[]**
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Returns feeds which matches with give `title`
 
 ### **async addFeed(feedUrl: string): Promise<Feed[]> | never**
 
