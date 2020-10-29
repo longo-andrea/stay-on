@@ -1,4 +1,4 @@
-import {Article} from "../feed/article/Article";
+import {Article} from "../src/feed/article/Article";
 
 const feedItemMock = {
     title: "Mock Feed",

@@ -22,7 +22,7 @@ export default class {
    * @param {string} title which represents feed's title to search
    */
   getFeedsByTitle(title: string): Feed[] {
-    return this.feeds.filter((feed) => feed.getTitle() === title);
+    return this.feeds.filter((feed) => feed.getTitle().includes(title));
   }
 
   /**

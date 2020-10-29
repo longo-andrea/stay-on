@@ -1,6 +1,6 @@
-import {Feed} from "../feed/Feed";
-import {FeedError} from "../feed/error/FeedError";
-import {Article} from "../feed/article/Article";
+import {Feed} from "../src/feed/Feed";
+import {FeedError} from "../src/feed/error/FeedError";
+import {Article} from "../src/feed/article/Article";
 
 const invalidFeedUrl = "https://lorem-rss.herokuapp.com/";
 const feedUrl = "https://lorem-rss.herokuapp.com/feed";
