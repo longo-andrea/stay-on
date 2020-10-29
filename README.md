@@ -19,6 +19,61 @@ StayOn is composed by 4 main class:
 - *Article*: which represents the single article, it contains all realted information like title, summary, last update, content, etc..
 - *StayOn*: which is the main container, it offers a simple way to handle feeds and some methods to retrieve useful information.
 
+# GETTING STARTED
+
+## Installation
+StayOn can be simply installed via ***npm***:
+
+```
+  npm install stay-on
+```
+
+Or, alternatively, you can download latest release from [GitHub page](https://github.com/longo-andrea/stay-on/releases). In this case you have to build it before using.
+
+```
+  npm install // to install npm node_modules
+  npm run build // to build stay-on package
+```
+
+## Example
+Once you have installed StayOn, you can start using it!
+Let's see an example.
+
+````
+import StayOn from "stay-on";
+
+(async() => { 
+  // 1. Build a new StayOn to store feeds
+  const myFeed = new StayOn();
+
+
+  // 2. Add all the feeds we want
+  await myFeed.addFeed("https://lorem-rss.herokuapp.com/feed");
+  await myFeed.addFeed("https://lorem-rss.herokuapp.com/feed");
+  await myFeed.addFeed("https://lorem-rss.herokuapp.com/feed");
+
+
+  // Alternatively, if you want to add more feeds at one time, you can use addFeeds method
+  await myFeed.addFeed(["https://lorem-rss.herokuapp.com/feed", 
+                        "https://lorem-rss.herokuapp.com/feed",
+                        "https://lorem-rss.herokuapp.com/feed"]);
+
+
+  // 3. Retrieve all the info we want from our feed list. Some examples below
+
+  // 3.1 Console.log the title of each feed
+  myFeed.getFeeds().forEach((feed) => {
+    console.log(feed.getTitle());
+  });
+  
+  // 3.2 Console.log the title of each articles on the first feed
+  myFeed.getFeeds()[0]
+    .getArticles().forEach((article) => {
+      console.log(article.getTitle());
+    });
+})();
+````
+
 # DOCUMENTATION
 
 > **StayOn**:
