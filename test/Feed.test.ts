@@ -59,15 +59,9 @@ describe("feed test", () => {
       });
 
       it("stringifyFeed should return the feed in a string form", () => {
-        expect(feed.stingifyFeed()).toBe(`url:${feedUrl}`);
+        expect(feed.stringifyFeed()).toBe(`url:${feedUrl}`);
       });
 
-      it("buildFromString should build a feed from string", () => {
-        const url = `url:${feedUrl}`;
-        const rebuiltFeed = Feed.buildFromString(url);
-
-        expect(rebuiltFeed.url).toBe(feedUrl);
-      });
     });
 
     describe("feed parsed", () => {

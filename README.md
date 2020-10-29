@@ -27,6 +27,8 @@ StayOn is composed by 4 main class:
 - [async addFeed(feedUrl: string)](#async-addfeedfeedurl-string-promisefeed--never)
 - [async addFeeds(feedsUrl: string[])](#async-addfeedsfeedsurl-string-promisefeed--never)
 - [removeFeedByTitle(title: string)](#removefeedbytitletitle-string-feed)
+- [stringify()](#stringify-string)
+- [static async buildFromString(stringifiedStayOn: string)](#static-async-buildfromstringstringifiedstayon-string-promisestayon)
 
 > **Feed**:
 - [constructor(url: string)](#constructorurl-string)
@@ -39,7 +41,6 @@ StayOn is composed by 4 main class:
 - [getLatestArticles()](#getlatestarticles-article)
 - [async parseFeed()](#async-parsefeed-promisevoid--unknown--never)
 - [stingifyFeed()](#stingifyfeed-string)
-- [static buildFromString(stringifyFeed: string)](#static-buildfromstringstringifyfeed-string-feed)
 - [async validateFeed(url: string)](#async-validatefeedurl-string-promise-never)
 
 > **FeedError**
@@ -86,9 +87,19 @@ Add all given feeds `feedsUrl`:
 ### **removeFeedByTitle(title: string): Feed[]**
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-Remove the feed with given `title`:
+Removes the feed with given `title`:
   - if the feed is found, it's removed from the list which is then Returnsed
   - if the feed is not found, nothing happen and the list is Returnsed
+
+### **stringify(): string**
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Returns currend feed list in a stringified form
+
+### **static async buildFromString(stringifiedStayOn: string): Promise<StayOn>**
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Builds and returns a feed list from given `stringifiedStayOn`
 
 ## FEED
 Feed class represents a single feed, and provides useful methods to interact with it:
@@ -96,7 +107,7 @@ Feed class represents a single feed, and provides useful methods to interact wit
 ###  **constructor(url: string)**
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-Build a Feed object with given url
+Builds a Feed object with given url
 
 ### **getTitle(): string**
 
@@ -126,22 +137,17 @@ Returns last updated article
 ### **async parseFeed(): Promise<void | unknown> | never**
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-Parse the current feed to retrieve its information. Could throw an error if something wrong happens during parsing process
+Parses the current feed to retrieve its information. Could throw an error if something wrong happens during parsing process
 
 ### **stingifyFeed(): string**
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 Returns feed's information in a stringified form
 
-### **static buildFromString(stringifyFeed: string): Feed**
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-Build and Returnss a feed with given string
-
 ### **async validateFeed(url: string): Promise| never**
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-Validate given url. An error is thrown if given url is not valid
+Validates given url. An error is thrown if given url is not valid
 
 
 ## FEED ERROR
@@ -150,7 +156,7 @@ FeedError class represents custom error for Feed
 ### **constructor(message: string, feed: string)**
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-Build a custom error with given `message` for `feed`.
+Builds a custom error with given `message` for `feed`.
 
 ### **toString(): string**
 
@@ -193,7 +199,7 @@ Returns the publish date of the article
 ### **getLink(): string**
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-Return article's link
+Returns article's link
 
 # CONTRIBUTION
 If you want to report a bug, request a new feature, or contribute, please open an [issue](https://github.com/longo-andrea/stay-on/issues).

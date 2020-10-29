@@ -171,21 +171,8 @@ export class Feed {
    * Returns a stingifyied feed
    * @return {string} stringyfied feed
    */
-  public stingifyFeed(): string {
+  public stringifyFeed(): string {
     return `url:${this._url}`;
-  }
-
-  /**
-   * @description
-   * Builds and returns a Feed starting from a string
-   * @return {string} stringyfied feed
-   */
-  static buildFromString(stringifyFeed: string): Feed {
-    const feedInfo = stringifyFeed.split(",,");
-
-    const url = feedInfo.find((info) => info.includes("url:")).split("url:")[1];
-
-    return new Feed(url);
   }
 
   /**

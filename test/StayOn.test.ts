@@ -81,5 +81,22 @@ describe("StayOn test", () => {
 
       expect(myFeeds.getFeeds().length).toBe(2);
     });
+
+    it("stringify should return current feed list in a stringified form", async () => {
+      const myFeeds = new StayOn();
+      await myFeeds.addFeeds([feedUrl, feedUrl]);
+
+      expect(myFeeds.stringify()).toBe(`url:${feedUrl},,url:${feedUrl},,`);
+    });
+
+    it("buildFromString should build a feed list from given string", async () => {
+      const myFeeds = new StayOn();
+      await myFeeds.addFeeds([feedUrl, feedUrl]);
+
+      const stringifiedFeedList = myFeeds.stringify();
+      const rebuildedFeeds = await StayOn.buildFromString(stringifiedFeedList);
+
+      expect(rebuildedFeeds.getFeeds().length).toBe(2);
+    });
   });
 });
